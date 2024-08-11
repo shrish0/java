@@ -281,6 +281,8 @@ Choose the method that best fits your requirements, whether it's minimal space u
 
 The provided code defines a class `RemoveDuplicateElementCond` with a method `removeDuplicateElementCond` that removes duplicates from a sorted array such that each element appears at most twice. It maintains the relative order of the elements and returns the new length of the array after duplicates are removed. Here’s a detailed explanation:
 
+---
+
 ### Remove Duplicate Element Condition where thier can be only atmost two unique element
 
 1. **Method Definition**:
