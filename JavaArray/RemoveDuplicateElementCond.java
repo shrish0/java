@@ -1,11 +1,12 @@
 public class RemoveDuplicateElementCond {
     public int removeDuplicateElementCond(int[] nums){
-        if(nums.length==0){
+        int l1=nums.length;
+        if(l1==0){
             return 0;
         }
         int k=0;
-        for(int x=0;x<nums.length;x++){
-            if(k<2||nums[x]!=nums[x-2]){
+        for(int x=0;x<l1;x++){
+            if(k<2 || nums[x]!=nums[k-2]){
                 nums[k]=nums[x];
                 k++;
             }
@@ -14,7 +15,7 @@ public class RemoveDuplicateElementCond {
     }
     public static void main(String[] args) {
         RemoveDuplicateElementCond rm = new RemoveDuplicateElementCond();
-        int nums[]={1,2,2,2,4,6,6,7,7,7,32,345};
+        int nums[]={1,1,1,2,2,3};
         int k=rm.removeDuplicateElementCond(nums);
         System.out.println();
         for(int x=0;x<k;x++){
