@@ -6,14 +6,11 @@ public class MergeSortedArrayInSingleArray{
         int index = m + n - 1; // Pointer for the end of nums1
         while(p>=0 & q>=0){
             if(nums1[p]>nums2[q]){
-                nums1[index]=nums1[p];
-                p--;
+                nums1[index--]=nums1[p--];
             }
             else{
-                nums1[index]=nums2[q];
-                q--;
+                nums1[index--]=nums2[q--];
             }
-            index--;
         }
         while(q>=0){
             nums1[index--]=nums2[q--];
