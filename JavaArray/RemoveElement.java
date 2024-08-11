@@ -10,19 +10,6 @@ public class RemoveElement {
         return k;
         }
 
-        /*
-          public int removeDuplicates(int[] nums) {
-        HashSet<Integer> set = new HashSet<>();
-        int k = 0; // Pointer for the position of unique elements
-        
-        for (int num : nums) {
-            if (set.add(num)) { // add returns false if the element already exists
-                nums[k++] = num;
-            }
-        }
-        return k; // Number of unique elements
-    }
-         */
     
     public static void main(String[] args) {
         int[] nums={1,2,3,3,2,6};
