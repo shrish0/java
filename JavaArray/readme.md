@@ -278,3 +278,73 @@ class Solution {
   - **Sorting + Two-Pointer** is a good alternative when you need to minimize space usage, but it comes with a higher time complexity of O(n log n). 
 
 Choose the method that best fits your requirements, whether it's minimal space usage, optimal time complexity, or simplicity of implementation.
+
+The provided code defines a class `RemoveDuplicateElementCond` with a method `removeDuplicateElementCond` that removes duplicates from a sorted array such that each element appears at most twice. It maintains the relative order of the elements and returns the new length of the array after duplicates are removed. Here’s a detailed explanation:
+
+### Remove Duplicate Element Condition where thier can be only atmost two unique element
+
+1. **Method Definition**:
+   ```java
+   public int removeDuplicateElementCond(int[] nums) {
+   ```
+   The method `removeDuplicateElementCond` takes a sorted array `nums` as input.
+
+2. **Edge Case Handling**:
+   ```java
+   if (nums.length == 0) {
+       return 0;
+   }
+   ```
+   If the array is empty (`nums.length == 0`), the method returns `0` since there are no elements to process.
+
+3. **Initialization**:
+   ```java
+   int k = 0;
+   ```
+   `k` is initialized to `0`. This variable tracks the position where the next unique element should be placed in the array.
+
+4. **Processing Each Element**:
+   ```java
+   for (int x = 0; x < nums.length; x++) {
+       if (k < 2 || nums[x] != nums[k - 2]) {
+           nums[k] = nums[x];
+           k++;
+       }
+   }
+   ```
+   - The loop iterates over each element of the array.
+   - **Condition Check**: The condition `k < 2 || nums[x] != nums[k - 2]` ensures that:
+     - For the first two elements (`k < 2`), they are always added to the result.
+     - For subsequent elements, only add them if they are not the same as the element two positions before (`nums[x] != nums[k - 2]`). This ensures that each element appears at most twice in the resulting array.
+   - If the condition is true, the current element `nums[x]` is placed at `nums[k]`, and `k` is incremented.
+
+5. **Returning the Result**:
+   ```java
+   return k;
+   ```
+   The method returns `k`, which represents the length of the array with each unique element appearing at most twice.
+
+6. **Main Method**:
+   ```java
+   public static void main(String[] args) {
+       RemoveDuplicateElementCond rm = new RemoveDuplicateElementCond();
+       int nums[] = {1, 2, 2, 2, 4, 6, 6, 7, 7, 7, 32, 345};
+       int k = rm.removeDuplicateElementCond(nums);
+       System.out.println();
+       for (int x = 0; x < k; x++) {
+           System.out.print(nums[x] + "  ");
+       }
+   }
+   ```
+   - Creates an instance of `RemoveDuplicateElementCond`.
+   - Defines an example sorted array `nums` with some duplicate elements.
+   - Calls `removeDuplicateElementCond` to process the array.
+   - Prints the elements of the modified array up to index `k`, which are the unique elements appearing at most twice.
+
+### Summary
+
+- **Purpose**: The method removes duplicates from a sorted array, ensuring that each element appears at most twice.
+- **Time Complexity**: `O(n)`, where `n` is the number of elements in the array. Each element is processed once.
+- **Space Complexity**: `O(1)`, as the algorithm modifies the array in place without using additional space.
+
+This approach effectively ensures that the array will contain each unique element at most twice, with the relative order preserved.
