@@ -36,7 +36,7 @@ public class RemoveDuplicateElement {
             RemoveDuplicateElement rm = new RemoveDuplicateElement();
             int nums[]={1,2,2,4,6,7,7,32,345};
             int k=rm.removeDuplicates(nums);
-            System.out.println("Array");
+            System.out.println();
             for(int x=0;x<k;x++){
                System.out.print(nums[x]+"  ");
             }
