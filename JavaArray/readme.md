@@ -136,3 +136,145 @@ This approach is simple, efficient (O(n) time complexity), and handles all edge 
 3. **Return the Start Index**: The `start` index will represent the number of elements not equal to `val`.
 
 This approach is efficient, potentially more so when many elements equal to `val` are present, but it involves more complex logic with swapping elements which cause more time in m/y access during swapping effect performance in term of m/y not in speed.
+
+---
+Here's an explanation for removing duplicates in both sorted and unsorted arrays, highlighting the optimal approaches for each scenario.
+
+### **1. Removing Duplicates from a Sorted Array**
+
+**Approach**: Two-Pointer Technique
+
+When the array is sorted, duplicates will always appear consecutively. The two-pointer technique leverages this property to efficiently remove duplicates in-place.
+
+**Steps**:
+1. **Initial Check**: 
+   - If the array is empty (`length == 0`), return 0 since there are no elements to process.
+
+2. **Two-Pointer Technique**:
+   - Use two pointers:
+     - `k` to track the position where the next unique element should be placed.
+     - `x` to iterate through the array.
+   - Start iterating from the second element (`x = 1`).
+   - Compare each element with the previous one:
+     - If they are different, place the current element at the `k`-th position and increment `k`.
+   
+3. **Return the Result**:
+   - The value of `k` represents the count of unique elements in the array.
+
+**Time Complexity**: O(n)  
+**Space Complexity**: O(1)
+
+**Code**:
+
+```java
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int l1 = nums.length;
+        if (l1 == 0) {
+            return 0;
+        }
+        int k = 1; // Pointer for the position of unique elements
+        for (int x = 1; x < l1; x++) {
+            if (nums[x - 1] != nums[x]) {
+                nums[k] = nums[x];
+                k++;
+            }
+        }
+        return k; // Return the count of unique elements
+    }
+}
+```
+
+### **2. Removing Duplicates from an Unsorted Array**
+
+**Approach**: HashSet or Sorting + Two-Pointer Technique
+
+When the array is unsorted, duplicates are scattered throughout the array. The most efficient ways to remove duplicates are either by using a `HashSet` or by sorting the array first and then applying the two-pointer technique.
+
+#### **A. Using a HashSet**
+
+A `HashSet` can be used to track elements as you iterate through the array. If an element is not in the set, it is unique and should be added to the set and the result.
+
+**Steps**:
+1. **Initialize a HashSet**:
+   - This set will store all unique elements.
+
+2. **Iterate through the Array**:
+   - For each element, check if it is in the set.
+   - If it’s not in the set, add it to the set and move it to the position tracked by `k`.
+
+3. **Return the Result**:
+   - The value of `k` represents the count of unique elements in the array.
+
+**Time Complexity**: O(n)  
+**Space Complexity**: O(n) (for storing unique elements)
+
+**Code**:
+
+```java
+import java.util.HashSet;
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        int k = 0; // Pointer for the position of unique elements
+        
+        for (int num : nums) {
+            if (set.add(num)) { // add returns false if the element already exists
+                nums[k++] = num;
+            }
+        }
+        return k; // Number of unique elements
+    }
+}
+```
+
+#### **B. Sorting + Two-Pointer Technique**
+
+Alternatively, you can first sort the array and then apply the two-pointer technique, as explained in the sorted array approach.
+
+**Steps**:
+1. **Sort the Array**: 
+   - Sorting will bring all duplicates together.
+
+2. **Apply the Two-Pointer Technique**:
+   - Once sorted, follow the same two-pointer approach as described for sorted arrays.
+
+**Time Complexity**: O(n log n) (due to sorting)  
+**Space Complexity**: O(1) (if sorting is done in-place)
+
+**Code**:
+
+```java
+import java.util.Arrays;
+
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        if (nums.length == 0) {
+            return 0;
+        }
+        
+        // Sort the array
+        Arrays.sort(nums);
+        
+        int k = 1; // Pointer for the position of unique elements
+        
+        for (int x = 1; x < nums.length; x++) {
+            if (nums[x - 1] != nums[x]) {
+                nums[k++] = nums[x];
+            }
+        }
+        
+        return k; // Number of unique elements
+    }
+}
+```
+
+### **Summary**
+
+- **For Sorted Arrays**: The two-pointer technique is optimal with O(n) time complexity and O(1) space complexity.
+- **For Unsorted Arrays**: 
+  - **HashSet** is preferred for O(n) time complexity and O(n) space complexity.
+  - **Sorting + Two-Pointer** is a good alternative when you need to minimize space usage, but it comes with a higher time complexity of O(n log n). 
+
+Choose the method that best fits your requirements, whether it's minimal space usage, optimal time complexity, or simplicity of implementation.
