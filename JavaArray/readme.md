@@ -89,3 +89,50 @@ for (int i = 0; i < matrix.length; i++) {
 }
 ```
 
+---
+
+### Merge sorted array in one array
+The `MergeSortedArrayInSingleArray` class provides a method to merge two sorted arrays into one sorted array within the first array.
+
+### **Explanation**:
+
+1. **Initialization**:
+   - `p` is initialized to the index of the last element of the initialized part of `nums1`.
+   - `q` is initialized to the index of the last element of `nums2`.
+   - `index` is set to the last position in `nums1`, which is the end of the array where the merged elements will be placed.
+
+2. **Merging**:
+   - The algorithm compares the elements at `p` and `q`. It places the larger of the two elements at the current `index` in `nums1`.
+   - The corresponding pointer (`p` or `q`) and `index` are decremented.
+
+3. **Copy Remaining Elements**:
+   - If there are any remaining elements in `nums2` after `nums1` has been processed, they are copied to `nums1`.
+
+This approach efficiently merges the arrays in place with a time complexity of O(m + n) and a space complexity of O(1), utilizing the extra space available at the end of `nums1`.
+
+--- 
+
+### Remove Element
+
+**Single Pointer Approach**: Use a pointer `k` to track the position where the next non-`val` element should be placed.
+
+1. **Iterate Through the Array**: Loop through each element in the array `nums`.
+
+2. **Overwrite and Increment**: If the current element is not equal to `val`, place it at the `k`th position and increment `k`.
+
+3. **Return Result**: After the loop, return `k`, which represents the number of elements in the array that are not equal to `val`.
+
+This approach is simple, efficient (O(n) time complexity), and handles all edge cases effectively.
+
+
+**Two-Pointer Approach**: Use two pointers, `start` (beginning of the array) and `last` (end of the array).
+
+1. **Iterate with Conditions**: 
+   - If `nums[start]` equals `val`, swap it with `nums[last]` and decrement `last`.
+   - If `nums[start]` is not equal to `val`, simply move the `start` pointer forward.
+
+2. **Continue Until Start Meets Last**: The loop continues until `start` exceeds `last`, ensuring all occurrences of `val` are removed.
+
+3. **Return the Start Index**: The `start` index will represent the number of elements not equal to `val`.
+
+This approach is efficient, potentially more so when many elements equal to `val` are present, but it involves more complex logic with swapping elements which cause more time in m/y access during swapping effect performance in term of m/y not in speed.
