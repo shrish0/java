@@ -1,6 +1,7 @@
 public class RotateArray{
     public void arrayRotate1(int[] nums,int k){
         int len = nums.length,x;
+        k = k % len;
         int nums2[]=new int[len];
         for(x=0;x<len;x++){
             nums2[(x+k)%len]=nums[x];

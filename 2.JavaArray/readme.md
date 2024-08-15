@@ -352,8 +352,8 @@ The provided code defines a class `RemoveDuplicateElementCond` with a method `re
 This approach effectively ensures that the array will contain each unique element at most twice, with the relative order preserved.
 
 ---
-Here’s both the initial **in-place reversal approach** (the efficient solution) and the **extra array approach** (less efficient but easier to understand) along with explanations and a driver code to run them.
 
+## Rotate Array By K element
 ### 1. **Efficient In-Place Reversal Approach**
 
 **Code:**
@@ -395,23 +395,16 @@ class Solution {
 **Code:**
 
 ```java
-class SolutionExtraArray {
-    public void rotate(int[] nums, int k) {
-        int len = nums.length;
-        k = k % len; // Handle cases where k is greater than the length of the array
-        
-        if (k == 0) {
-            return;
+class RotateArray {
+    public void arrayRotate1(int[] nums,int k){
+        int len = nums.length,x;
+        k = k % len;
+        int nums2[]=new int[len];
+        for(x=0;x<len;x++){
+            nums2[(x+k)%len]=nums[x];
         }
-
-        int[] nums2 = new int[len];
-        for (int x = 0; x < len; x++) {
-            nums2[(x + k) % len] = nums[x]; // Place elements in their new positions
-        }
-
-        // Copy the elements from nums2 back into nums
-        for (int x = 0; x < len; x++) {
-            nums[x] = nums2[x];
+        for(x=0;x<len;x++){
+            nums[x]=nums2[x];
         }
     }
 }
@@ -425,7 +418,7 @@ class SolutionExtraArray {
 **Code:**
 
 ```java
-public class RotateArrayTest {
+
     public static void main(String[] args) {
         // Test input
         int[] nums1 = {1, 2, 3, 4, 5, 6, 7};
@@ -434,14 +427,14 @@ public class RotateArrayTest {
         int k2 = 2;
         
         // Creating solution objects
-        Solution inPlaceSolution = new Solution();
-        SolutionExtraArray extraArraySolution = new SolutionExtraArray();
+        RotateArray inPlaceSolution = new RotateArray();
+        RotateArray extraArraySolution = new RotateArray();
         
         // Running the efficient in-place solution
         System.out.println("Efficient In-Place Solution:");
         System.out.print("Before rotation: ");
         printArray(nums1);
-        inPlaceSolution.rotate(nums1, k1);
+        inPlaceSolution.rotateArray1(nums1, k1);
         System.out.print("After rotation: ");
         printArray(nums1);
         
@@ -449,7 +442,7 @@ public class RotateArrayTest {
         System.out.println("\nLess Efficient Extra Array Solution:");
         System.out.print("Before rotation: ");
         printArray(nums2);
-        extraArraySolution.rotate(nums2, k2);
+        extraArraySolution.rotateArray2(nums2, k2);
         System.out.print("After rotation: ");
         printArray(nums2);
     }
@@ -460,7 +453,7 @@ public class RotateArrayTest {
         }
         System.out.println();
     }
-}
+
 ```
 
 ### Explanation of the Driver Code:
