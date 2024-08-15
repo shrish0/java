@@ -350,3 +350,136 @@ The provided code defines a class `RemoveDuplicateElementCond` with a method `re
 - **Space Complexity**: `O(1)`, as the algorithm modifies the array in place without using additional space.
 
 This approach effectively ensures that the array will contain each unique element at most twice, with the relative order preserved.
+
+---
+Here’s both the initial **in-place reversal approach** (the efficient solution) and the **extra array approach** (less efficient but easier to understand) along with explanations and a driver code to run them.
+
+### 1. **Efficient In-Place Reversal Approach**
+
+**Code:**
+
+```java
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        k = k % len; // Handle cases where k is greater than the length of the array
+        
+        // Step 1: Reverse the entire array
+        reverse(nums, 0, len - 1);
+        
+        // Step 2: Reverse the first k elements
+        reverse(nums, 0, k - 1);
+        
+        // Step 3: Reverse the remaining n-k elements
+        reverse(nums, k, len - 1);
+    }
+    
+    private void reverse(int[] nums, int start, int end) {
+        while (start < end) {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
+    }
+}
+```
+
+**Explanation:**
+- **reverse(nums, start, end):** A helper method that reverses the subarray between `start` and `end`.
+- The `rotate` method first adjusts `k` to be within the bounds of the array length. Then it reverses the entire array, followed by reversing the first `k` elements and then the remaining `n-k` elements to achieve the rotation in-place with `O(1)` extra space.
+
+### 2. **Less Efficient Extra Array Approach**
+
+**Code:**
+
+```java
+class SolutionExtraArray {
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        k = k % len; // Handle cases where k is greater than the length of the array
+        
+        if (k == 0) {
+            return;
+        }
+
+        int[] nums2 = new int[len];
+        for (int x = 0; x < len; x++) {
+            nums2[(x + k) % len] = nums[x]; // Place elements in their new positions
+        }
+
+        // Copy the elements from nums2 back into nums
+        for (int x = 0; x < len; x++) {
+            nums[x] = nums2[x];
+        }
+    }
+}
+```
+
+**Explanation:**
+- This method creates a new array `nums2` and places each element of `nums` into its rotated position. After populating `nums2`, the elements are copied back into `nums` to reflect the rotation.
+
+### 3. **Driver Code to Run Both Solutions**
+
+**Code:**
+
+```java
+public class RotateArrayTest {
+    public static void main(String[] args) {
+        // Test input
+        int[] nums1 = {1, 2, 3, 4, 5, 6, 7};
+        int k1 = 3;
+        int[] nums2 = {-1, -100, 3, 99};
+        int k2 = 2;
+        
+        // Creating solution objects
+        Solution inPlaceSolution = new Solution();
+        SolutionExtraArray extraArraySolution = new SolutionExtraArray();
+        
+        // Running the efficient in-place solution
+        System.out.println("Efficient In-Place Solution:");
+        System.out.print("Before rotation: ");
+        printArray(nums1);
+        inPlaceSolution.rotate(nums1, k1);
+        System.out.print("After rotation: ");
+        printArray(nums1);
+        
+        // Running the extra array solution
+        System.out.println("\nLess Efficient Extra Array Solution:");
+        System.out.print("Before rotation: ");
+        printArray(nums2);
+        extraArraySolution.rotate(nums2, k2);
+        System.out.print("After rotation: ");
+        printArray(nums2);
+    }
+    
+    private static void printArray(int[] nums) {
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+```
+
+### Explanation of the Driver Code:
+- **Test Input:** We use two different arrays and rotation values (`k`) to test both approaches.
+- **Solution Objects:** We create instances of `Solution` (the efficient in-place solution) and `SolutionExtraArray` (the less efficient extra array solution).
+- **Running Solutions:** We first print the array before rotation, apply the rotation using one of the solutions, and then print the array after rotation.
+- **printArray Method:** A helper method to print the contents of the array.
+
+### Output:
+When you run the driver code, you should see the following output:
+
+```
+Efficient In-Place Solution:
+Before rotation: 1 2 3 4 5 6 7 
+After rotation: 5 6 7 1 2 3 4 
+
+Less Efficient Extra Array Solution:
+Before rotation: -1 -100 3 99 
+After rotation: 3 99 -1 -100 
+```
+
+This output confirms that both solutions correctly rotate the arrays as expected.
